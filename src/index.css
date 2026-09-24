@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Palette source: Pumpkin Orange #EB7432, Lavender Mist #A59FF9,
+  Orchid Bloom #DBA5DF, Meadow Grass #BAD27D.
+  Forest Night (#0B4B1E) is intentionally NOT used anywhere in the UI
+  (per product decision) - neutrals below are a warm near-black instead.
+*/
+
+:root {
+  /* coral = Pumpkin Orange scale */
+  --coral-50: #FDF4EF; --coral-100: #FBE3D6; --coral-200: #F7C7AD; --coral-300: #F3A980;
+  --coral-400: #EE8A53; --coral-500: #EB7432; --coral-600: #C4622B; --coral-700: #994E24;
+  --coral-800: #6E3A1C; --coral-900: #4A2916;
+
+  /* cyan = Meadow Grass scale */
+  --cyan-50: #F9FBF5; --cyan-100: #F1F6E5; --cyan-200: #E3EDCB; --cyan-300: #D4E3AE;
+  --cyan-400: #C5D992; --cyan-500: #BAD27D; --cyan-600: #9CAF69; --cyan-700: #7B8852;
+  --cyan-800: #5A613B; --cyan-900: #3E4028;
+
+  /* sun = Lavender Mist scale */
+  --sun-50: #F8F7FF; --sun-100: #EDECFE; --sun-200: #DBD9FD; --sun-300: #C7C3FB;
+  --sun-400: #B3AEFA; --sun-500: #A59FF9; --sun-600: #8B85CE; --sun-700: #6E699F;
+  --sun-800: #514C70; --sun-900: #383447;
+
+  /* violet = Orchid Bloom scale */
+  --violet-50: #FCF8FC; --violet-100: #F8EDF9; --violet-200: #F1DBF2; --violet-300: #E9C7EB;
+  --violet-400: #E1B3E4; --violet-500: #DBA5DF; --violet-600: #B78AB9; --violet-700: #8F6C8F;
+  --violet-800: #684F65; --violet-900: #463541;
+
+  /* ink = true neutral grayscale (warm, NOT forest night) */
+  --ink-50: #FFFFFF; --ink-100: #F5F3F0; --ink-200: #E8E4DE; --ink-300: #D3CDC5;
+  --ink-400: #A79F97; --ink-500: #7A7268; --ink-600: #574F47; --ink-700: #3A342E;
+  --ink-800: #241F1B; --ink-900: #15120F;
+
+  /* Light mode (default) */
+  --app-bg: #FFFBF6;
+  --app-surface: #FFFFFF;
+  --app-border: #ECE4D8;
+  --app-text: #201A16;
+  --app-muted: #7A7268;
+  --app-primary: #EB7432;
+  --app-accent: #A59FF9;
+  --app-success: #8FAE5C;
+  --app-info: #DBA5DF;
+  --app-pink: #DBA5DF;
+  --app-shadow: #201A16;
+
+  --app-header-bg: #A59FF9;
+  --app-header-text: #201A16;
+  --app-header-active-bg: #EB7432;
+  --app-header-active-text: #FFFFFF;
+}
+
+.dark {
+  --app-bg: #171320;
+  --app-surface: #211C2C;
+  --app-border: #3A3348;
+  --app-text: #F7F3FA;
+  --app-muted: #B5ACC7;
+  --app-primary: #F0863F;
+  --app-accent: #B9AEFF;
+  --app-success: #C5D992;
+  --app-info: #E9C7EB;
+  --app-pink: #E9C7EB;
+  --app-shadow: #0A0810;
+
+  --app-header-bg: #2C2540;
+  --app-header-text: #F7F3FA;
+  --app-header-active-bg: #F0863F;
+  --app-header-active-text: #171320;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--app-bg);
+    color: var(--app-text);
+    font-feature-settings: 'cv11', 'ss01';
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  h1, h2, h3, h4 { font-family: 'Poppins', Inter, system-ui, sans-serif; }
+  ::selection { background: var(--app-accent); color: var(--ink-900); }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn text-white hover:opacity-90 active:scale-[0.97]; background: var(--app-primary); box-shadow: 4px 4px 0 var(--app-shadow); }
+  .btn-accent { @apply btn active:scale-[0.97]; background: var(--app-accent); color: var(--ink-900); box-shadow: 4px 4px 0 var(--app-shadow); }
+  .btn-secondary { @apply btn border-2 active:scale-[0.97] hover:opacity-90; background: var(--app-surface); color: var(--app-text); border-color: var(--app-border); box-shadow: 3px 3px 0 var(--app-shadow); }
+  .btn-ghost { @apply btn hover:bg-black/5 dark:hover:bg-white/5; color: var(--app-text); }
+  .btn-danger { @apply btn text-white hover:opacity-90; background: var(--app-primary); }
+  .card { @apply rounded-[1.5rem] border-2 transition-all duration-200; background: var(--app-surface); border-color: var(--app-border); box-shadow: 4px 4px 0 var(--app-shadow); }
+  .card-hover { @apply card hover:-translate-y-1; }
+  .input { @apply w-full px-4 py-3 rounded-2xl border-2 transition-all duration-200 focus:outline-none; background: var(--app-surface); border-color: var(--app-border); color: var(--app-text); }
+  .input::placeholder { color: var(--app-muted); opacity: 0.8; }
+  .input:focus { border-color: var(--app-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--app-primary) 40%, transparent); }
+  .label { @apply block text-sm font-bold mb-1.5; color: var(--app-text); }
+  .skill-tag { @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border-2 transition-all duration-200; border-color: var(--app-border); }
+  .skill-tag-creative { @apply skill-tag; background: var(--app-accent); color: var(--ink-900); }
+  .skill-tag-tech { @apply skill-tag; background: var(--cyan-500); color: var(--ink-900); }
+  .skill-tag-language { @apply skill-tag; background: var(--app-success); color: var(--ink-900); }
+  .skill-tag-music { @apply skill-tag; background: var(--violet-500); color: var(--ink-900); }
+  .skill-tag-business { @apply skill-tag; background: var(--app-primary); color: #fff; }
+  .skill-tag-lifestyle { @apply skill-tag; background: var(--ink-200); color: var(--ink-800); }
+  .skill-tag-terracotta { @apply skill-tag; background: var(--coral-100); color: var(--coral-700); }
+  .badge { @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-bold border-2; border-color: var(--app-border); }
+  .glass-card { @apply rounded-2xl border-2; background: var(--app-surface); border-color: var(--app-border); box-shadow: 5px 5px 0 var(--app-shadow); }
+  .gradient-text, .gradient-text-warm { color: var(--app-primary); }
+}
+
+@layer utilities {
+  /* Dark-mode text-color fixes.
+     IMPORTANT: the app's pages use `text-charcoal-*` classes throughout
+     (144 occurrences), NOT `text-ink-*` — even though both map to the same
+     --ink-N CSS variables via tailwind.config.js color aliases, Tailwind
+     still generates a *separate* utility class per alias name. The
+     `.text-ink-300/400/500` overrides below only ever matched the 3 rare
+     direct `text-ink-*` usages in the codebase; they never touched the
+     charcoal-* classes actually used on every page, which is why headings
+     and body text rendered near-black-on-dark-background (invisible) in
+     dark mode. Fixed by targeting `.text-charcoal-*` directly, with a
+     brightness ramp that mirrors each shade's role in light mode: 300 is
+     the most subtle/tertiary text there, 800 the boldest heading text, so
+     in dark mode 300 stays dim and 800 goes almost white. */
+  .dark .text-ink-300 { color: #D8D2E2 !important; }
+  .dark .text-ink-400 { color: #B5ACC7 !important; }
+  .dark .text-ink-500 { color: #8C8299 !important; }
+  .dark .text-charcoal-300 { color: #837AA0 !important; }
+  .dark .text-charcoal-400 { color: #A79FBD !important; }
+  .dark .text-charcoal-500 { color: #C7C0D6 !important; }
+  .dark .text-charcoal-600 { color: #DAD5E6 !important; }
+  .dark .text-charcoal-700 { color: var(--app-text) !important; }
+  .dark .text-charcoal-800 { color: var(--app-text) !important; }
+  .dark .text-app-muted { color: #B5ACC7 !important; }
+
+  /* Same class-name mismatch as above, but for backgrounds/borders: these
+     "subtle recessed panel" utilities (review rows, skill chips, section
+     dividers) map to --ink-50/100/200, which stay near-white in dark mode
+     since that variable isn't theme-aware. Without this, every one of
+     these panels renders as a glaring white box floating inside a dark
+     card. Values chosen to sit just above --app-surface (#211C2C) so the
+     panel is visibly distinct from the card behind it, same as the light
+     theme's relationship between --app-surface and ivory-50/100/200. */
+  .dark .bg-ivory-50 { background-color: #2A2438 !important; }
+  .dark .bg-ivory-100 { background-color: #322B42 !important; }
+  .dark .bg-ivory-200 { background-color: #3A3348 !important; }
+  .dark .border-ivory-100 { border-color: #3A3348 !important; }
+  .dark .border-ivory-200 { border-color: #453D57 !important; }
+
+  /* Same problem again, third form: pastel "info box" surfaces (the tinted
+     panels used throughout SwapDetailPage, DiscoverPage, and the Dashboard
+     stat-icon chips — e.g. bg-teal-50/border-teal-100, bg-coral-50, etc.)
+     map to --cyan-50/100, --coral-50/100, --sun-50/100, which are pale,
+     near-white tints meant for a light background. Left unfixed, every one
+     of these boxes would render as a bright, washed-out rectangle in dark
+     mode. The icon/text colors inside them (teal-400/600, coral-500, etc.)
+     already read fine on a dark background, so only the 50/100 "surface"
+     shades need a dark-mode tint — a low-saturation dark version of each
+     hue, so the box still reads as "this hue's panel" without glowing. */
+  .dark .bg-teal-50 { background-color: #202B22 !important; }
+  .dark .bg-teal-50\/50 { background-color: rgba(32, 43, 34, 0.5) !important; }
+  .dark .bg-teal-50\/60 { background-color: rgba(32, 43, 34, 0.6) !important; }
+  .dark .border-teal-100 { border-color: #2C3B2F !important; }
+  .dark .bg-terracotta-50 { background-color: #33241C !important; }
+  .dark .bg-terracotta-50\/50 { background-color: rgba(51, 36, 28, 0.5) !important; }
+  .dark .border-terracotta-100 { border-color: #453125 !important; }
+  .dark .bg-sage-50 { background-color: #2A2C1E !important; }
+  .dark .border-sage-100 { border-color: #383B28 !important; }
+  .dark .bg-coral-50 { background-color: #33241C !important; }
+  .dark .border-coral-100 { border-color: #453125 !important; }
+  .text-balance { text-wrap: balance; }
+  .bg-grid { background-image: linear-gradient(to right, color-mix(in srgb, var(--app-text) 8%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--app-text) 8%, transparent) 1px, transparent 1px); background-size: 32px 32px; }
+  .bg-dots { background-image: radial-gradient(color-mix(in srgb, var(--app-text) 18%, transparent) 1.5px, transparent 1.5px); background-size: 22px 22px; }
+}
+
+@keyframes float-card { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+@keyframes float-card-alt { 0%,100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(10px) rotate(-2deg); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pop { 0% { opacity: 0; transform: scale(.85) rotate(-5deg); } 100% { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-float { animation: float-card 5s ease-in-out infinite; }
+.animate-float-slow { animation: float-card-alt 7s ease-in-out infinite; }
+.animate-marquee { animation: marquee 28s linear infinite; }
+.animate-slide-up, .animate-slide-up-lg { animation: reveal-up .65s cubic-bezier(.16,1,.3,1) both; }
+.animate-pop-in { animation: pop .65s cubic-bezier(.16,1,.3,1) both; }
+.animate-fade-in { animation: reveal-up .45s ease-out both; }
+.animate-scale-in { animation: pop .3s ease-out both; }
+.animate-blob { animation: float-card 12s ease-in-out infinite; }
+.animate-bounce-slow { animation: float-card-alt 2.5s ease-in-out infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--app-bg); }
+::-webkit-scrollbar-thumb { background: var(--app-border); border-radius: 999px; border: 3px solid var(--app-bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--app-primary); }
